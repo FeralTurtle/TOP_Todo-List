@@ -1,3 +1,26 @@
 body {
+    height: 100vh;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr 9fr;
+    grid-template-areas: "header header"
+                          "categories display";
     background-color: #808080;
-}
+  }
+  
+  header {
+    grid-area: header;
+  }
+  
+  div {
+  }
+  
+  .todo-categories {
+    grid-area: categories;
+  }
+  
+  .todo-display {
+    grid-area: display;
+  }
+  
