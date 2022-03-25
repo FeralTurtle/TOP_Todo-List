@@ -12,14 +12,47 @@
         To-Do
     </header>
 
-    <div class="todo-categories">
-        To-do categories
+    <div class="todo-categories-container">
+        <div class="list-todo-header">
+            Todo list
+        </div>
+        <div class="list-todo-items">
+            Todo items
+        </div>
+        <div class="list-projects-header">
+            Projects list
+        </div>
+        <div class="list-projects-items">
+            Project items
+        </div>
     </div>
 
     <div class="todo-display">
-        To-do display
-    </div>
 
+        <div class="popup-form">
+            <span class="close-form">&times</span>
+            <form>
+                <label for="title">Title</label>
+                <input type="text" id="title">
+                <label for="description">Description</label>
+                <input type="text" id="description">
+                <label for="due-date">Due date</label>
+                <input type="date" id="due-date">
+                <label for="priority">Priority</label>
+                <select name="priority" id="priority">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <button type="button" id="form-btn">Submit</button>
+            </form>
+        </div>
+
+        <div class="add-button tooltip">
+            <div class="tooltip-text">Add a todo</div>
+            <img class="add-button-img tooltip" src="temp_icons/plus.svg" alt="add button">
+        </div>
+    </div>
 
     <script src="main.js"></script>
 </body>
