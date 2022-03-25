@@ -30,7 +30,7 @@
     <div class="todo-display">
 
         <div class="popup-form">
-            <span class="close-form">&times</span>
+            <span class="form-close">&times</span>
             <form>
                 <label for="title">Title</label>
                 <input type="text" id="title" autocomplete="off">
@@ -44,12 +44,20 @@
                     <option value="medium">Medium</option>
                     <option value="low">Low</option>
                 </select>
-                <button type="button" id="form-btn">Submit</button>
+                <label for="project">Project</label>
+                <select name="project" id="project" autocomplete="off">
+                    <option value="none">None</option>
+                    <option value="add-project">Add a project</option>
+                </select>
+                <div class="form-buttons">
+                    <button type="button" id="form-btn">Submit</button>
+                    <button type="button" id="form-reset">Reset</button>
+                </div>
             </form>
         </div>
 
         <div class="add-button tooltip">
-            <div class="tooltip-text">Add a todo</div>
+            <div class="tooltip-text">Add a to-do</div>
             <img class="add-button-img tooltip" src="temp_icons/plus.svg" alt="add button">
         </div>
     </div>
