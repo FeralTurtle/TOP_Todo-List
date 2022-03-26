@@ -57,6 +57,10 @@ header span {
   font-weight: bold;
 }
 
+.description {
+  margin: 0px 6px;
+}
+
 .item-partial {
   margin: 0px 6px;
 }
@@ -83,13 +87,13 @@ header span {
 }
 
 /* Todo items */
-.todo-item-full {
+.todo-item {
   display: grid;
   grid-template-columns: .43fr .43fr 5fr 1fr 1fr;
   margin-bottom: 9px;
 }
 
-.todo-item-full span {
+.todo-item span {
   padding: 6px;
 }
 
