@@ -3,6 +3,7 @@
   --red: #e60000;
   --light-gray: #f2f2f2;
   --gray: #808080;
+  --light-yellow: #ffffe6;
   --box-shadow-color: 0px 5px 5px rgba(0, 0, 0, .38);
 }
 
@@ -19,10 +20,26 @@ body {
 
 header {
   grid-area: header;
+  display: grid;
+  grid-template-columns: auto 1fr;
   background-color: var(--red);
   box-shadow: var(--box-shadow-color);
   color: var(--white);
   z-index: 2;
+}
+
+header img {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-content: center;
+  padding: 15px;
+}
+
+header span {
+  align-self: center;
+  font-weight: bold;
+  font-size: 1.8rem;
+  padding: 15px;
 }
 
 /* To-do categories */
@@ -34,29 +51,55 @@ header {
   background-color: var(--light-gray);
 }
 
-.list-todo-header, .list-projects-header {
+.list-header {
   box-shadow: inset 0px -2px var(--gray);
   margin: 6px 4px;
   font-weight: bold;
 }
 
-.list-todo-items, .list-projects-items {
+.item-partial {
   margin: 0px 6px;
 }
 
 /* Main display */
-.todo-display {
+.todo-display-container {
   grid-area: display;
   display: grid;
+  grid-template-rows: auto 1fr auto;
   padding: 12px;
+}
+
+.todo-display-header {
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.form-tools {
+  align-self: end;
+  justify-self: end;
+}
+
+/* Todo items */
+.todo-item-full {
+  display: grid;
+  grid-template-columns: .43fr .43fr 5fr 1fr 1fr;
+  margin-bottom: 9px;
+}
+
+.todo-item-full span {
+  padding: 6px;
 }
 
 /* Todo item info popup */
 .popup-form {
   display: none;
-  position: relative;
+  position: absolute;
   left: 50%;
-  transform: translate(-50%, 50%);
+  transform: translate(-15%, -145%);
+  ;
   flex-direction: column;
   align-items: center;
   padding: 12px;

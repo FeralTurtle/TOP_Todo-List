@@ -31,8 +31,6 @@ const saveInfoInput = () => {
     return newTodo;
 }
 
-header.textContent = 'hi';
-
 addButton.addEventListener('click', () => {
     formPopup.style.display = 'flex';
 });
@@ -59,3 +57,7 @@ projectTag.addEventListener('click', () => {
         document.querySelector(`label[for='project']`).textContent = 'Project name';
     };
 });
+
+const listContainer = document.querySelector('.list-container');
+const listItems = Array.from(listContainer.children);
+listItems.forEach(item => console.log(item));
