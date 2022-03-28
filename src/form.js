@@ -1,4 +1,5 @@
 import { createTodo } from './todo.js';
+import { projects } from './projects.js';
 
 const form = (() => {
     const addButton = document.querySelector('.add-button');
@@ -13,21 +14,21 @@ const form = (() => {
     const projectTag = document.querySelector('#project');
     const formTags = [titleTag, descriptionTag, dueDateTag, priorityTag, projectTag];
 
-    const saveInfoInput = () => {
-        const title = titleTag.value;
-        const description = descriptionTag.value;
-        const dueDate = dueDateTag.value;
-        const priority = priorityTag.value;
-
-        const newTodo = createTodo(title, description, dueDate, priority);
-        return newTodo;
-    };
-
     addButton.addEventListener('click', () => {
         formPopup.style.display = 'flex';
     });
     formSubmitBtn.addEventListener('click', () => {
-        console.log(saveInfoInput());
+        const projectTag = document.querySelector('#project');
+        const title = titleTag.value;
+        const description = descriptionTag.value;
+        const dueDate = dueDateTag.value;
+        const priority = priorityTag.value;
+        const project = projectTag.value;
+
+        const newTodo = createTodo(title, description, dueDate, priority, project);
+        projects.add(newTodo);
+        // projects.projectsArray.push(newTodo.project); // Append project title to projects array
+        // console.log(projects.projectsArray);
     });
     formCloseBtn.addEventListener('click', () => {
         formTags.forEach(tag => tag.value = null);
@@ -35,17 +36,16 @@ const form = (() => {
     });
     formResetBtn.addEventListener('click', () => {
         formTags.forEach(tag => tag.value = null);
-        // WIP. New options are added by the user and should be saved somewhere else to re-append here.
-        const projectInput = document.querySelector('#project');
-        const projectSelect = document.createElement('select');
-        projectSelect.setAttribute('name', 'project');
-        projectSelect.setAttribute('id', 'project');
-        projectSelect.setAttribute('autocomplete', 'off');
-        const tempOption = document.createElement('option');
-        tempOption.setAttribute('value', 'add-project');
-        tempOption.textContent = 'Add a project';
-        projectInput.replaceWith(projectSelect);
-        projectSelect.append(tempOption);
+        // const projectInput = document.querySelector('#project');
+        // const projectSelect = document.createElement('select');
+        // projectSelect.setAttribute('name', 'project');
+        // projectSelect.setAttribute('id', 'project');
+        // projectSelect.setAttribute('autocomplete', 'off');
+        // const tempOption = document.createElement('option');
+        // tempOption.setAttribute('value', 'add-project');
+        // tempOption.textContent = 'Add a project';
+        // projectInput.replaceWith(projectSelect);
+        // projectSelect.append(tempOption);
     });
     projectTag.addEventListener('click', () => {
         if (projectTag.value == 'add-project') {

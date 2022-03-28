@@ -2,11 +2,11 @@ import circle from './icons/empty-circle.png';
 import pencil from './icons/edit.png';
 import { enableHighlighting } from './highlighting.js';
 
-const createTodo = (title, description, dueDate, priority) => {
-    return { title, description, dueDate, priority };
+const createTodo = (title, description, dueDate, priority, project) => {
+    return { title, description, dueDate, priority, project };
 };
 
-const createTodoElement = () => {
+const createTodoElement = (title, description, dueDate, priority) => {
     const newTodo = document.createElement('div');
     newTodo.classList.add('todo-item');
 
@@ -33,9 +33,12 @@ const createTodoElement = () => {
         };
         newTodo.append(newSpan);
         const display = document.querySelector('.todo-display-main');
-        display.append(newTodo);
+        display.append(newTodo); // If project == selected project, append to display else... Actually should make a display object that gets from projects.js.
+        //On submit form click, call createTodo, push data to projects.js, organize todos by project property, display array of projects, display array of selected project's todos
+        //Deleting a project loops through its todos and deletes them. This should be in projects.js.
     };
     enableHighlighting.todoHighlighting();
+    return { newTodo };
 };
 
-export { createTodo, createTodoElement };
+export { createTodo/*,createTodoElement*/ };
