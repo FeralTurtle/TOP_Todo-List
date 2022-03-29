@@ -27,8 +27,6 @@ const form = (() => {
 
         const newTodo = createTodo(title, description, dueDate, priority, project);
         projects.add(newTodo);
-        // projects.projectsArray.push(newTodo.project); // Append project title to projects array
-        // console.log(projects.projectsArray);
     });
     formCloseBtn.addEventListener('click', () => {
         formTags.forEach(tag => tag.value = null);
@@ -36,16 +34,32 @@ const form = (() => {
     });
     formResetBtn.addEventListener('click', () => {
         formTags.forEach(tag => tag.value = null);
-        // const projectInput = document.querySelector('#project');
-        // const projectSelect = document.createElement('select');
-        // projectSelect.setAttribute('name', 'project');
-        // projectSelect.setAttribute('id', 'project');
-        // projectSelect.setAttribute('autocomplete', 'off');
-        // const tempOption = document.createElement('option');
-        // tempOption.setAttribute('value', 'add-project');
-        // tempOption.textContent = 'Add a project';
-        // projectInput.replaceWith(projectSelect);
-        // projectSelect.append(tempOption);
+        //Update selection options with project titles
+        const titles = projects.getTitles();
+        for (let i = -1; i < titles.length; i++) {
+            if (i == -1) {
+                const projectInput = document.querySelector('#project');
+                const newSelect = document.createElement('select');
+                newSelect.name = 'project';
+                newSelect.id = 'project';
+                newSelect.autocomplete = 'off';
+                const defaultNone = document.createElement('option');
+                defaultNone.value = 'none';
+                defaultNone.textContent = 'None';
+                const defaultAdd = document.createElement('option');
+                defaultAdd.value = 'add-project';
+                defaultAdd.textContent = 'Add a project';
+                projectInput.replaceWith(newSelect);
+                newSelect.append(defaultNone);
+                newSelect.append(defaultAdd);
+            } else {
+                const input = document.querySelector('#project');
+                const newOption = document.createElement('option');
+                newOption.value = titles[i];
+                newOption.textContent = titles[i];
+                input.append(newOption);
+            };
+        };
     });
     projectTag.addEventListener('click', () => {
         if (projectTag.value == 'add-project') {
@@ -53,9 +67,9 @@ const form = (() => {
                 projectTag.removeChild(projectTag.firstChild);
             };
             const newInput = document.createElement('input');
-            newInput.setAttribute('type', 'text');
-            newInput.setAttribute('id', 'project');
-            newInput.setAttribute('autocomplete', 'off');
+            newInput.type = 'text';
+            newInput.id = 'project';
+            newInput.autocomplete = 'off';
             projectTag.replaceWith(newInput);
             document.querySelector(`label[for='project']`).textContent = 'Project name';
         };

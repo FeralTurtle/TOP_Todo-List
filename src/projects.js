@@ -4,6 +4,11 @@ const projects = (() => {
         title: 'default',
     };
     const projectsArray = [defaultProject];
+    const titles = [defaultProject.title];
+
+    const getTitles = () => {
+        return titles;
+    }
 
     const createProject = (newTodo, projectTitle) => {
         const todos = [newTodo];
@@ -18,10 +23,10 @@ const projects = (() => {
         } else {
             const newProject = createProject(newTodo, newTodo.project);
             projectsArray.push(newProject);
-            console.log(projectsArray);
+            titles.push(newProject.title);
         };
     };
-    return { add };
+    return { add, getTitles };
 })();
 
 export { projects };
