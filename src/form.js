@@ -14,6 +14,47 @@ const form = (() => {
     const projectTag = document.querySelector('#project');
     const formTags = [titleTag, descriptionTag, dueDateTag, priorityTag, projectTag];
 
+    const changeToTextInput = () => {
+        const projectTag = document.querySelector('#project');
+        if (projectTag.value == 'add-project') {
+            while (projectTag.firstChild) {
+                projectTag.removeChild(projectTag.firstChild);
+            };
+            const newInput = document.createElement('input');
+            newInput.type = 'text';
+            newInput.id = 'project';
+            newInput.autocomplete = 'off';
+            projectTag.replaceWith(newInput);
+            document.querySelector(`label[for='project']`).textContent = 'Project name';
+        };
+    };
+
+    const addProjectOptions = (titles) => {
+        for (let i = -1; i < titles.length; i++) {
+            if (i == -1) {
+                const projectInput = document.querySelector('#project');
+                const newSelect = document.createElement('select');
+                newSelect.name = 'project';
+                newSelect.id = 'project';
+                newSelect.autocomplete = 'off';
+                const newAddOption = document.createElement('option');
+                newAddOption.value = 'add-project';
+                newAddOption.textContent = 'Add a project';
+                newAddOption.addEventListener('click', () => {
+                    changeToTextInput();
+                });
+                projectInput.replaceWith(newSelect);
+                newSelect.append(newAddOption);
+            } else {
+                const input = document.querySelector('#project');
+                const newOption = document.createElement('option');
+                newOption.value = titles[i];
+                newOption.textContent = titles[i];
+                input.append(newOption);
+            };
+        };
+    };
+
     addButton.addEventListener('click', () => {
         formPopup.style.display = 'flex';
     });
@@ -34,45 +75,11 @@ const form = (() => {
     });
     formResetBtn.addEventListener('click', () => {
         formTags.forEach(tag => tag.value = null);
-        //Update selection options with project titles
         const titles = projects.getTitles();
-        for (let i = -1; i < titles.length; i++) {
-            if (i == -1) {
-                const projectInput = document.querySelector('#project');
-                const newSelect = document.createElement('select');
-                newSelect.name = 'project';
-                newSelect.id = 'project';
-                newSelect.autocomplete = 'off';
-                const defaultNone = document.createElement('option');
-                defaultNone.value = 'none';
-                defaultNone.textContent = 'None';
-                const defaultAdd = document.createElement('option');
-                defaultAdd.value = 'add-project';
-                defaultAdd.textContent = 'Add a project';
-                projectInput.replaceWith(newSelect);
-                newSelect.append(defaultNone);
-                newSelect.append(defaultAdd);
-            } else {
-                const input = document.querySelector('#project');
-                const newOption = document.createElement('option');
-                newOption.value = titles[i];
-                newOption.textContent = titles[i];
-                input.append(newOption);
-            };
-        };
+        addProjectOptions(titles);
     });
     projectTag.addEventListener('click', () => {
-        if (projectTag.value == 'add-project') {
-            while (projectTag.firstChild) {
-                projectTag.removeChild(projectTag.firstChild);
-            };
-            const newInput = document.createElement('input');
-            newInput.type = 'text';
-            newInput.id = 'project';
-            newInput.autocomplete = 'off';
-            projectTag.replaceWith(newInput);
-            document.querySelector(`label[for='project']`).textContent = 'Project name';
-        };
+        changeToTextInput();
     });
 })();
 
