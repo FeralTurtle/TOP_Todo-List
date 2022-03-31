@@ -3,22 +3,29 @@ import circle from './icons/empty-circle.png';
 import pencil from './icons/edit.png';
 import trashCan from './icons/trash-can.png';
 import { enableHighlighting } from './highlighting.js';
+import { projects } from './projects.js';
 
-const renderProject = (projectTitle) => {
-    const newDiv = document.createElement('div');
-    newDiv.classList.add('project-item');
-    const titleSpan = document.createElement('span');
-    titleSpan.textContent = projectTitle;
-    const dotsDiv = document.createElement('div');
-    const dotsImg = document.createElement('img');
-    dotsImg.classList.add('dots');
-    dotsImg.src = dots;
-    dotsImg.alt = 'dots';
-    dotsDiv.append(dotsImg);
-    newDiv.append(titleSpan);
-    newDiv.append(dotsDiv);
-    const projectsDisplay = document.querySelector('.list-container');
-    projectsDisplay.append(newDiv);
+const renderProject = (newTodo) => {
+    // const isExistingProject = projects.checkExistingProject(newTodo);
+    // if (!isExistingProject) { //&& !(newTodo.project == '')
+    //     console.log('not existing project.. rendering project...');
+        const newDiv = document.createElement('div');
+        newDiv.classList.add('project-item');
+        const titleSpan = document.createElement('span');
+        titleSpan.textContent = newTodo.project;
+        const dotsDiv = document.createElement('div');
+        const dotsImg = document.createElement('img');
+        dotsImg.classList.add('dots');
+        dotsImg.src = dots;
+        dotsImg.alt = 'dots';
+        dotsDiv.append(dotsImg);
+        newDiv.append(titleSpan);
+        newDiv.append(dotsDiv);
+        const projectsDisplay = document.querySelector('.list-container');
+        projectsDisplay.append(newDiv);
+    // } else {
+    //     console.log('is existing project.. not rendering project...');
+    // };
 };
 
 const renderTodo = (newTodo) => {
@@ -55,7 +62,7 @@ const renderTodo = (newTodo) => {
         const display = document.querySelector('.todo-display-main');
         display.append(newDiv);
     };
-    renderProject(newTodo.project);
+    renderProject(newTodo);
     enableHighlighting.todoHighlighting();
     enableHighlighting.projectsHighlighting();
 };

@@ -1,3 +1,5 @@
+import { renderProject, renderTodo } from "./display.js";
+
 const projects = (() => {
     const defaultProject = {
         todos: [],
@@ -21,31 +23,36 @@ const projects = (() => {
         return { todos, title };
     };
 
+    const checkExistingProject = (newTodo) => {
+        const isExistingProject = (element) => ((newTodo.project == element.title) && (element.title != 'default'));
+        return projectsArray.some(isExistingProject);
+    };
+
+    const findExistingProject = (newTodo) => {
+        const foundProject = projectsArray.find(element => ((newTodo.project == element.title) && (element.title != 'default')));
+        return foundProject;
+    };
+
     //Adds newTodo to a project corresponding to its project property.
     const add = (newTodo) => {
-        const isExistingProject = projectsArray.some(element => {
-            return ((newTodo.project == element.title) && (element.title != 'default'));
-        });
-        const existingProject = projectsArray.find(element => {
-            return ((newTodo.project == element.title) && (element.title != 'default'));
-        });
+        const isExistingProject = checkExistingProject(newTodo);
+        const existingProject = findExistingProject(newTodo);
 
-        if (newTodo.project == 'none') {
-            defaultProject.todos.push(newTodo);
+        if (isExistingProject) {
+            console.log('pushing newTodo to existing project');
+            existingProject.todos.push(newTodo);
         } else {
-            if (isExistingProject) {
-                existingProject.todos.push(newTodo);
-            } else {
-                const newProject = createProject(newTodo, newTodo.project);
-                projectsArray.push(newProject);
-                titles.push(newProject.title);
-            };
+            console.log('making new project...');
+            const newProject = createProject(newTodo, newTodo.project);
+            projectsArray.push(newProject);
+            titles.push(newProject.title);
+            renderProject(newTodo);
         };
-        console.log(newTodo);
-        console.log(projectsArray);
-        console.log(titles);
+        // console.log(newTodo);
+        // console.log(projectsArray);
+        // console.log(titles);
     };
-    return { createTodo, add, getTitles };
+    return { createTodo, add, getTitles, checkExistingProject };
 })();
 
 export { projects };
