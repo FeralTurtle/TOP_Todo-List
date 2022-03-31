@@ -1,19 +1,10 @@
 const enableHighlighting = (() => {
     const projectsHighlighting = () => {
-        //Get an array of children of a parent element of a particular class:
-        //Get a nodelist of all list containers
-        const listContainers = document.querySelectorAll('.list-container');
-        //Get an HTML collection of all list container children. Turn into children HTMl collections into arrays under an array.
-        const childrenArrays = [];
-        listContainers.forEach(list => childrenArrays.push(Array.from(list.children)));
-        //Make an array of all children. Concat the previous arrays together.
-        // const childrenArray = childrenArrays[0].concat(childrenArrays[1]);
-        const childrenArray = childrenArrays[0];
-
-        //Project highlighting
-        const selectionProject = document.querySelector('.selected-project');
-        selectionProject.style.backgroundColor = '#ffffe6';
-        childrenArray.forEach(child => child.addEventListener('click', () => {
+        const listContainer = document.querySelector('.list-container');
+        const listChildren = Array.from(listContainer.children);
+        const selectedProject = document.querySelector('.selected-project');
+        selectedProject.style.backgroundColor = '#ffffe6';
+        listChildren.forEach(child => child.addEventListener('click', () => {
             const previousSelection = document.querySelector('.selected-project');
             previousSelection.style.backgroundColor = null;
             previousSelection.classList.remove('selected-project');
@@ -23,18 +14,16 @@ const enableHighlighting = (() => {
     };
     projectsHighlighting();
 
-    //Todo highlighting
     const todoHighlighting = () => {
         const selectionTodo = document.querySelector('.selected-todo');
         selectionTodo.style.backgroundColor = '#f2f2f2';
         const mainDisplay = document.querySelector('.todo-display-main');
-        const todoItems = Array.from(mainDisplay.children); // Array of whole todo divs
+        const todoItems = Array.from(mainDisplay.children);
+        //Add click events to parts of todo div
         for (let i = 0; i < todoItems.length; i++) {
-            const todoElements = Array.from(todoItems[i].children); //Array of todo div's children for each div
-            // todoElements.forEach(element => console.log(element));
+            const todoElements = Array.from(todoItems[i].children);
             for (let j = 0; j < todoElements.length; j++) {
-                // Only add event listeners to todo elements from index 2
-                if (j > 1) {
+                if (j > 2) {
                     todoElements[j].addEventListener('click', () => {
                         const previousSelection = document.querySelector('.selected-todo');
                         previousSelection.style.backgroundColor = null;
@@ -47,8 +36,8 @@ const enableHighlighting = (() => {
         };
     };
     todoHighlighting();
-    
-    return { projectsHighlighting, todoHighlighting}
+
+    return { projectsHighlighting, todoHighlighting }
 })();
 
 export { enableHighlighting };

@@ -61,13 +61,13 @@ header span {
   margin: 0px 6px;
 }
 
-.item-partial {
+.project-item {
   display: grid;
   grid-template-columns: 7fr 1fr;
   margin: 0px 6px;
 }
 
-.dots > img {
+.dots>img {
   display: flex;
   justify-content: center;
   padding-top: 2px;
@@ -194,3 +194,17 @@ form>label, form>input, form>.radio {
 .tooltip:hover .tooltip-text {
   visibility: visible;
 }
+
+.popup-project-options {
+  position: absolute;
+  transition: 15px;
+  transform: translate(-100%, -105%);
+  background-color: white;
+  border: 1px solid lightgray;
+  box-shadow: 0px 0px 2px gray;
+}
+
+.popup-project-options > div:nth-child(1) {
+  box-shadow: inset 0px -2px lightgray;
+ }
+ 

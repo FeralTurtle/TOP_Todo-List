@@ -8,13 +8,17 @@ const projects = (() => {
 
     const getTitles = () => {
         return titles;
-    }
+    };
+
+    const createTodo = (title, description, dueDate, priority, project) => {
+        return { title, description, dueDate, priority, project };
+    };
 
     const createProject = (newTodo, projectTitle) => {
         const todos = [newTodo];
         const title = projectTitle;
 
-        return { todos , title };
+        return { todos, title };
     };
 
     //Adds newTodo to a project corresponding to its project property.
@@ -37,8 +41,11 @@ const projects = (() => {
                 titles.push(newProject.title);
             };
         };
+        console.log(newTodo);
+        console.log(projectsArray);
+        console.log(titles);
     };
-    return { add, getTitles };
+    return { createTodo, add, getTitles };
 })();
 
 export { projects };

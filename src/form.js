@@ -1,5 +1,5 @@
-import { createTodo } from './todo.js';
 import { projects } from './projects.js';
+import { renderTodo } from './display.js';
 
 const form = (() => {
     const addButton = document.querySelector('.add-button');
@@ -60,14 +60,9 @@ const form = (() => {
     });
     formSubmitBtn.addEventListener('click', () => {
         const projectTag = document.querySelector('#project');
-        const title = titleTag.value;
-        const description = descriptionTag.value;
-        const dueDate = dueDateTag.value;
-        const priority = priorityTag.value;
-        const project = projectTag.value;
-
-        const newTodo = createTodo(title, description, dueDate, priority, project);
+        const newTodo = projects.createTodo(titleTag.value, descriptionTag.value, dueDateTag.value, priorityTag.value, projectTag.value);
         projects.add(newTodo);
+        renderTodo(newTodo);
     });
     formCloseBtn.addEventListener('click', () => {
         formTags.forEach(tag => tag.value = null);
