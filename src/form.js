@@ -61,7 +61,6 @@ const form = (() => {
         const projectTag = document.querySelector('#project');
         const newTodo = projects.createTodo(titleTag.value, descriptionTag.value, dueDateTag.value, priorityTag.value, projectTag.value);
         projects.add(newTodo);
-        // renderTodo(newTodo);
     });
     formCloseBtn.addEventListener('click', () => {
         formTags.forEach(tag => tag.value = null);

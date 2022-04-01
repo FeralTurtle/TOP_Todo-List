@@ -6,8 +6,25 @@ import { enableHighlighting } from './highlighting.js';
 import { projects } from './projects.js';
 
 const renderProject = (newTodo) => {
+    //Make project-item div
     const newDiv = document.createElement('div');
     newDiv.classList.add('project-item');
+    newDiv.addEventListener('click', () => {
+        //Clear display
+        const todoDisplayMain = document.querySelector('.todo-display-main');
+        while (todoDisplayMain.firstChild) {
+            todoDisplayMain.removeChild(todoDisplayMain.firstChild);
+        };
+        //Update display with selected project's todos
+        const selectedProjectTag = document.querySelector('.selected-project > span:nth-child(1)');
+        const selectedProject = projects.findProjectByTitle(selectedProjectTag.textContent);
+        const todosArray = selectedProject.todos;
+        console.log('todosArray:');
+        console.log(todosArray);
+        renderTodo(todosArray);
+        const todoDisplayHeader = document.querySelector('.todo-display-header');
+        todoDisplayHeader.textContent = selectedProjectTag.textContent;
+    });
     const titleSpan = document.createElement('span');
     titleSpan.textContent = newTodo.project;
     const dotsDiv = document.createElement('div');
@@ -57,38 +74,51 @@ const renderProject = (newTodo) => {
 };
 
 const renderTodo = (newTodo) => {
-    const newDiv = document.createElement('div');
-    newDiv.classList.add('todo-item');
-
-    for (let i = 0; i < 6; i++) {
-        const newSpan = document.createElement('span');
-        if (i == 0) {
-            const newImg = document.createElement('img');
-            newImg.src = circle;
-            newImg.alt = 'check circle';
-            newSpan.append(newImg);
-        } else if (i == 1) {
-            const newImg = document.createElement('img');
-            newImg.src = pencil;
-            newImg.alt = 'edit description';
-            newSpan.append(newImg);
-        } else if (i == 2) {
-            const newImg = document.createElement('img');
-            newImg.src = trashCan;
-            newImg.alt = 'trash can';
-            newSpan.append(newImg);
-        } else if (i == 3) {
-            newSpan.textContent = newTodo.title;
-        } else if (i == 4) {
-            newSpan.textContent = newTodo.dueDate;
-        } else if (i == 5) {
-            newSpan.textContent = newTodo.priority;
-        };
-        newDiv.append(newSpan);
-        const display = document.querySelector('.todo-display-main');
-        display.append(newDiv);
+    //Convert argument to array
+    let todosArray = [];
+    const isArray = Array.isArray(newTodo);
+    if (!isArray) {
+        todosArray.push(newTodo);
+    } else {
+        todosArray = newTodo;
     };
-    enableHighlighting.todoHighlighting();
+
+    //Make todo-item divs for each todo
+    for (let i = 0; i < todosArray.length; i++) {
+        const todo = todosArray[i];
+        const newDiv = document.createElement('div');
+        newDiv.classList.add('todo-item');
+
+        for (let j = 0; j < 6; j++) {
+            const newSpan = document.createElement('span');
+            if (j == 0) {
+                const newImg = document.createElement('img');
+                newImg.src = circle;
+                newImg.alt = 'check circle';
+                newSpan.append(newImg);
+            } else if (j == 1) {
+                const newImg = document.createElement('img');
+                newImg.src = pencil;
+                newImg.alt = 'edit description';
+                newSpan.append(newImg);
+            } else if (j == 2) {
+                const newImg = document.createElement('img');
+                newImg.src = trashCan;
+                newImg.alt = 'trash can';
+                newSpan.append(newImg);
+            } else if (j == 3) {
+                newSpan.textContent = todo.title;
+            } else if (j == 4) {
+                newSpan.textContent = todo.dueDate;
+            } else if (j == 5) {
+                newSpan.textContent = todo.priority;
+            };
+            newDiv.append(newSpan);
+            const display = document.querySelector('.todo-display-main');
+            display.append(newDiv);
+        };
+    };
+    // enableHighlighting.todoHighlighting();
 };
 
 export { renderProject, renderTodo };
