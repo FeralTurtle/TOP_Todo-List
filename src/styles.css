@@ -4,6 +4,7 @@
   --light-gray: #f2f2f2;
   --gray: #808080;
   --light-yellow: #ffffe6;
+  --black: #000000;
   --box-shadow-color: 0px 5px 5px rgba(0, 0, 0, .38);
 }
 
@@ -119,7 +120,7 @@ header span {
   width: 400px;
   background-color: var(--white);
   white-space: pre-line;
-  border: 3px solid black;
+  border: 3px solid var(--black);
   box-shadow: 2px 2px 6px 2px var(--gray);
 }
 
@@ -146,7 +147,7 @@ form>label, form>input, form>.radio {
 }
 
 .form-close {
-  color: #aaa;
+  color: var(--gray);
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -180,8 +181,8 @@ form>label, form>input, form>.radio {
 .tooltip .tooltip-text {
   visibility: hidden;
   width: 120px;
-  background-color: black;
-  color: #fff;
+  background-color: var(--black);
+  color: var(--white);
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
@@ -195,16 +196,26 @@ form>label, form>input, form>.radio {
   visibility: visible;
 }
 
+/* Project popup options */
 .popup-project-options {
+  display: none;
   position: absolute;
-  transition: 15px;
   transform: translate(-100%, -105%);
-  background-color: white;
-  border: 1px solid lightgray;
-  box-shadow: 0px 0px 2px gray;
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
+  box-shadow: 0px 0px 2px var(--gray);
 }
 
-.popup-project-options > div:nth-child(1) {
-  box-shadow: inset 0px -2px lightgray;
- }
- 
+.popup-project-options>div:nth-child(1) {
+  box-shadow: inset 0px -2px var(--light-gray);
+}
+
+.rename-project {
+  display: none;
+  position: absolute;
+  transform: translate(15%, -282%);
+  left: 50%;
+  border: 2px solid var(--black);
+  padding: 15px;
+  text-align: center;
+}

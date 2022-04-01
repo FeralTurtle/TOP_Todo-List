@@ -1,5 +1,4 @@
 import { projects } from './projects.js';
-import { renderTodo } from './display.js';
 
 const form = (() => {
     const addButton = document.querySelector('.add-button');
@@ -70,7 +69,7 @@ const form = (() => {
     });
     formResetBtn.addEventListener('click', () => {
         formTags.forEach(tag => tag.value = null);
-        const titles = projects.getTitles();
+        const titles = projects.projectTitles();
         addProjectOptions(titles);
     });
     projectTag.addEventListener('click', () => {

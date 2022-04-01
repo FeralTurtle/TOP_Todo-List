@@ -6,10 +6,12 @@ const projects = (() => {
         title: 'Project',
     };
     const projectsArray = [defaultProject];
-    const titles = [defaultProject.title];
 
-    const getTitles = () => {
-        return titles;
+    const projectTitles = () => {
+        //For each projectsArray element, push to local titles array and return it
+        const titles = [];
+        projectsArray.forEach(project => titles.push(project.title));
+        return titles; //Return a string array of title properties
     };
 
     const createTodo = (title, description, dueDate, priority, project) => {
@@ -21,6 +23,15 @@ const projects = (() => {
         const title = projectTitle;
 
         return { todos, title };
+    };
+
+    const renameProject = (project, renameValue) => {
+        const newName = (project.title = renameValue);
+        return newName;
+    };
+
+    const findProjectByTitle = (title) => {
+        return projectsArray.find(element => (element.title == title));
     };
 
     const checkExistingProject = (newTodo) => {
@@ -39,20 +50,19 @@ const projects = (() => {
         const existingProject = findExistingProject(newTodo);
 
         if (isExistingProject) {
-            console.log('pushing newTodo to existing project');
             existingProject.todos.push(newTodo);
         } else {
-            console.log('making new project...');
             const newProject = createProject(newTodo, newTodo.project);
             projectsArray.push(newProject);
-            titles.push(newProject.title);
             renderProject(newTodo);
         };
-        // console.log(newTodo);
-        // console.log(projectsArray);
-        // console.log(titles);
+
+        const selectedProject = document.querySelector('.selected-project > span:nth-child(1)');
+        if (newTodo.project == selectedProject.textContent) {
+            renderTodo(newTodo);
+        };
     };
-    return { createTodo, add, getTitles, checkExistingProject };
+    return { projectsArray, createTodo, add, checkExistingProject, projectTitles, renameProject, findProjectByTitle };
 })();
 
 export { projects };

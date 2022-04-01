@@ -6,26 +6,54 @@ import { enableHighlighting } from './highlighting.js';
 import { projects } from './projects.js';
 
 const renderProject = (newTodo) => {
-    // const isExistingProject = projects.checkExistingProject(newTodo);
-    // if (!isExistingProject) { //&& !(newTodo.project == '')
-    //     console.log('not existing project.. rendering project...');
-        const newDiv = document.createElement('div');
-        newDiv.classList.add('project-item');
-        const titleSpan = document.createElement('span');
-        titleSpan.textContent = newTodo.project;
-        const dotsDiv = document.createElement('div');
-        const dotsImg = document.createElement('img');
-        dotsImg.classList.add('dots');
-        dotsImg.src = dots;
-        dotsImg.alt = 'dots';
-        dotsDiv.append(dotsImg);
-        newDiv.append(titleSpan);
-        newDiv.append(dotsDiv);
-        const projectsDisplay = document.querySelector('.list-container');
-        projectsDisplay.append(newDiv);
-    // } else {
-    //     console.log('is existing project.. not rendering project...');
-    // };
+    const newDiv = document.createElement('div');
+    newDiv.classList.add('project-item');
+    const titleSpan = document.createElement('span');
+    titleSpan.textContent = newTodo.project;
+    const dotsDiv = document.createElement('div');
+    const dotsImg = document.createElement('img');
+    dotsDiv.classList.add('dots');
+    dotsImg.src = dots;
+    dotsImg.alt = 'dots';
+    dotsDiv.append(dotsImg);
+    newDiv.append(titleSpan);
+    newDiv.append(dotsDiv);
+    const optionsDiv = document.createElement('div');
+    const renameDiv = document.createElement('div');
+    const deleteDiv = document.createElement('div');
+    optionsDiv.classList.add('popup-project-options');
+    renameDiv.textContent = 'Rename';
+    deleteDiv.textContent = 'Delete';
+    optionsDiv.append(renameDiv);
+    optionsDiv.append(deleteDiv);
+    dotsDiv.append(optionsDiv);
+    const projectsDisplay = document.querySelector('.list-container');
+    projectsDisplay.append(newDiv);
+    enableHighlighting.projectsHighlighting();
+    //Options popup
+    dotsDiv.addEventListener('click', () => {
+        (optionsDiv.style.display == 'none') ? optionsDiv.style.display = 'block' : optionsDiv.style.display = 'none';
+    });
+    renameDiv.addEventListener('click', () => {
+        const renameProject = document.querySelector('.rename-project');
+        renameProject.style.display = 'block';
+        //Submit button
+        const renameSubmit = document.querySelector('.rename-submit');
+        renameSubmit.addEventListener('click', () => {
+            const projectTitle = document.querySelector('#project-title');
+            const renameValue = projectTitle.value;
+            const selectedProjectTag = document.querySelector('.selected-project > span:nth-child(1)');
+            const previousValue = selectedProjectTag.textContent;
+            const selectedProject = projects.findProjectByTitle(previousValue);
+            const newName = projects.renameProject(selectedProject, renameValue);
+            selectedProjectTag.textContent = newName;
+        });
+        //Close button
+        const renameClose = document.querySelector('.rename-close');
+        renameClose.addEventListener('click', () => {
+            renameProject.style.display = 'none';
+        });
+    });
 };
 
 const renderTodo = (newTodo) => {
@@ -34,8 +62,6 @@ const renderTodo = (newTodo) => {
 
     for (let i = 0; i < 6; i++) {
         const newSpan = document.createElement('span');
-        //Add event listeners for each individual span
-        //include mark as complete functionality.
         if (i == 0) {
             const newImg = document.createElement('img');
             newImg.src = circle;
@@ -62,9 +88,7 @@ const renderTodo = (newTodo) => {
         const display = document.querySelector('.todo-display-main');
         display.append(newDiv);
     };
-    renderProject(newTodo);
     enableHighlighting.todoHighlighting();
-    enableHighlighting.projectsHighlighting();
 };
 
 export { renderProject, renderTodo };
