@@ -8,15 +8,13 @@ const enableHighlighting = (() => {
         for (let i = 0; i < listChildren.length; i++) {
             const listItems = Array.from(listChildren[i].children);
             for (let j = 0; j < listItems.length; j++) {
-                if (j >= 0) {
-                    listItems[j].addEventListener('click', () => {
-                        const previousSelection = document.querySelector('.selected-project');
-                        previousSelection.style.backgroundColor = null;
-                        previousSelection.classList.remove('selected-project');
-                        listItems[j].parentElement.classList.add('selected-project');
-                        listItems[j].parentElement.style.backgroundColor = '#ffffe6';
-                    });
-                };
+                listItems[j].addEventListener('click', () => {
+                    const previousSelection = document.querySelector('.selected-project');
+                    previousSelection.style.backgroundColor = null;
+                    previousSelection.classList.remove('selected-project');
+                    listItems[j].parentElement.classList.add('selected-project');
+                    listItems[j].parentElement.style.backgroundColor = '#ffffe6';
+                });
             };
         };
     };
@@ -31,15 +29,13 @@ const enableHighlighting = (() => {
         for (let i = 0; i < todoItems.length; i++) {
             const todoElements = Array.from(todoItems[i].children);
             for (let j = 0; j < todoElements.length; j++) {
-                if (j > 2) {
-                    todoElements[j].addEventListener('click', () => {
-                        const previousSelection = document.querySelector('.selected-todo');
-                        previousSelection.style.backgroundColor = null;
-                        previousSelection.classList.remove('selected-todo');
-                        todoElements[j].parentElement.classList.add('selected-todo');
-                        todoElements[j].parentElement.style.backgroundColor = '#f2f2f2';
-                    });
-                };
+                todoElements[j].addEventListener('click', () => {
+                    const previousSelection = document.querySelector('.selected-todo');
+                    previousSelection.style.backgroundColor = null;
+                    previousSelection.classList.remove('selected-todo');
+                    todoElements[j].parentElement.classList.add('selected-todo');
+                    todoElements[j].parentElement.style.backgroundColor = '#f2f2f2';
+                });
             };
         };
     };

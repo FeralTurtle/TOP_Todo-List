@@ -210,7 +210,7 @@ form>label, form>input, form>.radio {
   box-shadow: inset 0px -2px var(--light-gray);
 }
 
-.rename-project {
+.rename-project, .edit-description {
   display: none;
   position: absolute;
   transform: translate(15%, -282%);

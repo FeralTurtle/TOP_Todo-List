@@ -19,8 +19,6 @@ const renderProject = (newTodo) => {
         const selectedProjectTag = document.querySelector('.selected-project > span:nth-child(1)');
         const selectedProject = projects.findProjectByTitle(selectedProjectTag.textContent);
         const todosArray = selectedProject.todos;
-        console.log('todosArray:');
-        console.log(todosArray);
         renderTodo(todosArray);
         const todoDisplayHeader = document.querySelector('.todo-display-header');
         todoDisplayHeader.textContent = selectedProjectTag.textContent;
@@ -71,6 +69,13 @@ const renderProject = (newTodo) => {
             renameProject.style.display = 'none';
         });
     });
+    deleteDiv.addEventListener('click', () => {
+        const selectedProjectTag = document.querySelector('.selected-project');
+        selectedProjectTag.remove();
+        const titleTag = document.querySelector('.selected-project > span:nth-child(1)');
+        const selectedProject = projects.findProjectByTitle(titleTag.textContent);
+        selectedProject.remove();
+    });
 };
 
 const renderTodo = (newTodo) => {
@@ -86,8 +91,10 @@ const renderTodo = (newTodo) => {
     //Make todo-item divs for each todo
     for (let i = 0; i < todosArray.length; i++) {
         const todo = todosArray[i];
+        const description = document.querySelector('.description');
         const newDiv = document.createElement('div');
         newDiv.classList.add('todo-item');
+        newDiv.addEventListener('click', () => description.textContent = todo.description);
 
         for (let j = 0; j < 6; j++) {
             const newSpan = document.createElement('span');
@@ -96,16 +103,36 @@ const renderTodo = (newTodo) => {
                 newImg.src = circle;
                 newImg.alt = 'check circle';
                 newSpan.append(newImg);
+                newSpan.addEventListener('click', () => {
+                    const titleSpan = document.querySelector('.selected-todo > span:nth-child(4)');
+                    titleSpan.style.textDecoration = 'line-through';
+                });
             } else if (j == 1) {
                 const newImg = document.createElement('img');
                 newImg.src = pencil;
                 newImg.alt = 'edit description';
                 newSpan.append(newImg);
+                newSpan.addEventListener('click', () => {
+                    const editDescriptionForm = document.querySelector('.edit-description');
+                    editDescriptionForm.style.display = 'block';
+                    const editSubmit = document.querySelector('.edit-submit');
+                    editSubmit.addEventListener('click', () => {
+                        const newDescription = document.querySelector('#new-description');
+                        todo.description = newDescription.value;
+                        description.textContent = todo.description;
+                    });
+                    const editClose = document.querySelector('.edit-close'); 
+                    editClose.addEventListener('click', () => editDescriptionForm.style.display = 'none');
+                });
             } else if (j == 2) {
                 const newImg = document.createElement('img');
                 newImg.src = trashCan;
                 newImg.alt = 'trash can';
                 newSpan.append(newImg);
+                newSpan.addEventListener('click', () => {
+                    const selectedTodo = document.querySelector('.selected-todo');
+                    selectedTodo.remove();
+                });
             } else if (j == 3) {
                 newSpan.textContent = todo.title;
             } else if (j == 4) {
@@ -118,7 +145,7 @@ const renderTodo = (newTodo) => {
             display.append(newDiv);
         };
     };
-    // enableHighlighting.todoHighlighting();
+    enableHighlighting.todoHighlighting();
 };
 
 export { renderProject, renderTodo };
